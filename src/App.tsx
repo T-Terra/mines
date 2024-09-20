@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import params from './Params';
+import Field from './components/Field';
 
 export default class App extends Component  {
 
@@ -17,6 +18,12 @@ export default class App extends Component  {
         <Text style={styles.highlight}>Tomanho da grade: 
           {params.getRowsAmount()}X{params.getColumnsAmount()}
         </Text>
+        <Field/>
+        <Field opened/>
+        <Field opened nearMines={1}/>
+        <Field opened nearMines={2}/>
+        <Field opened nearMines={3}/>
+        <Field opened nearMines={6}/>
       </SafeAreaView>
     );
   }
