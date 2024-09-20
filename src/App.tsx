@@ -27,6 +27,8 @@ export default class App extends Component  {
         <Field mined/>
         <Field mined opened/>
         <Field mined opened exploded/>
+        <Field flagged/>
+        <Field flagged opened/>
       </SafeAreaView>
     );
   }
