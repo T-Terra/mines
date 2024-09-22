@@ -8,8 +8,29 @@ import {
 
 import params from './Params';
 import Field from './components/Field';
+import MineField from './components/MineField';
+import { createMineBoard } from './Logic';
 
 export default class App extends Component  {
+
+  constructor(props) {
+    super(props)
+    this.state = this.createState()
+  }
+
+  minesAmount = () => {
+    const cols = params.getColumnsAmount()
+    const rows = params.getRowsAmount()
+    return Math.ceil(cols * rows * params.difficultLevel)
+  }
+
+  createState = () => {
+    const cols = params.getColumnsAmount()
+    const rows = params.getRowsAmount()
+    return {
+      board: createMineBoard(rows, cols, this.minesAmount())
+    }
+  }
 
   render(): React.ReactNode {
     return (
@@ -18,17 +39,9 @@ export default class App extends Component  {
         <Text style={styles.highlight}>Tomanho da grade: 
           {params.getRowsAmount()}X{params.getColumnsAmount()}
         </Text>
-        <Field/>
-        <Field opened/>
-        <Field opened nearMines={1}/>
-        <Field opened nearMines={2}/>
-        <Field opened nearMines={3}/>
-        <Field opened nearMines={6}/>
-        <Field mined/>
-        <Field mined opened/>
-        <Field mined opened exploded/>
-        <Field flagged/>
-        <Field flagged opened/>
+        <View style={styles.board}>
+          <MineField board={this.state.board}/>
+        </View>
       </SafeAreaView>
     );
   }
@@ -36,23 +49,12 @@ export default class App extends Component  {
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 32,
-    paddingHorizontal: 24,
+    justifyContent: 'flex-end',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  board: {
+    alignContent: 'center',
+    backgroundColor: '#AAA',
+  }
 });
